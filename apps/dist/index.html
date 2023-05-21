@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fullscreen Clock</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .clock {
+      font-family: "Montserrat", "Century Gothic", sans-serif;
+      color: var(--text-color);
+      font-size: 10vw;
+      text-align: center;
+    }
+    
+    .date {
+      font-family: "Montserrat", "Century Gothic", sans-serif;
+      color: var(--text-color);
+      font-size: 3vw;
+      text-align: center;
+      white-space: nowrap;
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .toggle-label {
+      color: var(--text-color);
+      font-family: "Montserrat", "Century Gothic", sans-serif;
+      font-size: 1.5rem;
+      margin-right: 8px;
+    }
+    
+    .toggle-input {
+      display: none;
+    }
+    
+    .toggle-slider {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    
+    .toggle-slider:before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      left: 2px;
+      bottom: 2px;
+      background-color: var(--slider-color);
+      transition: all 0.3s ease;
+    }
+    
+    .toggle-input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400|Century+Gothic" rel="stylesheet">
+</head>
+<body>
+  <div class="clock" id="clock"></div>
+  <div class="date" id="date"></div>
+  
+  <div class="toggle-container">
+    <label for="theme-toggle" class="toggle-label">Theme</label>
+    <input type="checkbox" id="theme-toggle" class="toggle-input">
+    <div class="toggle-slider"></div>
+  </div>
+
+  <div class="toggle-container">
+    <label for="language-toggle" class="toggle-label">Language</label>
+    <input type="checkbox" id="language-toggle" class="toggle-input">
+    <div class="toggle-slider"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      
+      var time = hours + ":" + minutes + ":" + seconds;
+      document.getElementById("clock").textContent = time;
+      
+      var daysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var daysMs = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+      var monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var monthsMs = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+
+      var day, month;
+      var languageToggle = document.getElementById('language-toggle');
+      if (languageToggle.checked) {
+        day = daysMs[now.getDay()];
+        month = monthsMs[now.getMonth()];
+      } else {
+        day = daysEn[now.getDay()];
+        month = monthsEn[now.getMonth()];
+      }
+
+      var date = now.getDate();
+      var year = now.getFullYear();
+      var fullDate = day + ', ' + date + ' ' + month + ' ' + year;
+      document.getElementById("date").textContent = fullDate;
+      
+      setTimeout(updateClock, 1000);
+    }
+    
+    updateClock();
+
+    var themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.documentElement.style.setProperty('--bg-color', '#fff');
+        document.documentElement.style.setProperty('--text-color', '#000');
+        document.documentElement.style.setProperty('--slider-color', '#000');
+      } else {
+        document.documentElement.style.setProperty('--bg-color', '#000');
+        document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.7)');
+        document.documentElement.style.setProperty('--slider-color', '#fff');
+      }
+    });
+
+    var languageToggle = document.getElementById('language-toggle');
+    languageToggle.addEventListener('change', function() {
+      updateClock();
+    });
+  </script>
+</body>
+</html>
