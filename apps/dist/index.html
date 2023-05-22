@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Fullscreen Clock</title>
+  <title>CMF Studio | Time</title>
   <style>
     html, body {
       height: 100%;
@@ -12,6 +12,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    .title {
+      font-family: "Montserrat", "Century Gothic", sans-serif;
+      color: var(--text-color);
+      font-size: 4vw;
+      text-align: center;
+      margin-top: 20px;
     }
     
     .clock {
@@ -72,6 +80,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400|Century+Gothic" rel="stylesheet">
 </head>
 <body>
+  <h1 class="title">CMF Studio</h1>
+
   <div class="clock" id="clock"></div>
   <div class="date" id="date"></div>
   
