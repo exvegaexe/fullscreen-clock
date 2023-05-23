@@ -139,13 +139,13 @@
     var themeToggle = document.getElementById('theme-toggle');
     themeToggle.addEventListener('change', function() {
       if (this.checked) {
-        document.documentElement.style.setProperty('--bg-color', '#fff');
-        document.documentElement.style.setProperty('--text-color', '#000');
-        document.documentElement.style.setProperty('--slider-color', '#000');
-      } else {
         document.documentElement.style.setProperty('--bg-color', '#000');
         document.documentElement.style.setProperty('--text-color', 'rgba(255, 255, 255, 0.7)');
         document.documentElement.style.setProperty('--slider-color', '#fff');
+      } else {
+        document.documentElement.style.setProperty('--bg-color', '#fff');
+        document.documentElement.style.setProperty('--text-color', '#000');
+        document.documentElement.style.setProperty('--slider-color', '#000');
       }
     });
 
